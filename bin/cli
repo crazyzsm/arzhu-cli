@@ -1,0 +1,38 @@
+#! /usr/bin/env node
+const packageObj = require('../package.json');
+const {program} = require("commander");
+program
+ .version(`zhu-cli@${packageObj.version}`)   // 设定版本号  调用命令 zhu --version
+ .usage(`<command> [option]`)
+
+//  创建项目
+program
+ .command('create <app-name>')  //  create 创建项目
+ .option('-f,--force','强制性更改项目名')
+ .description('创建一个 项目')
+ .action((name,command)=>{
+     require('../lib/create')(name,command)
+ })
+
+// 读取配置项
+program
+ .command('config [value]')
+ .option('-g,--get [key]','获取配置的key的值') 
+ .option('-s,--set [key] [value]','') 
+ .option('-d,--delete [key]')
+ .action((value,command)=>{
+     console.log('看看value',value)
+     console.log('看看command',command)
+}) 
+
+program
+ .command('ui [option]')
+ .description('选择适合你的UI框架')
+ .action((name,command)=>{
+
+ })
+
+
+program.parse(process.argv)   // 解析命令行参数
+
+
